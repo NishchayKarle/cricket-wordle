@@ -1,7 +1,9 @@
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import Board from "../components/board";
-import selectAnswer from "../components/names/names";
+import Hints from "../components/hints";
+import TopBar from "../components/topbar";
+import selectAnswer from "../names/names";
 
 const numGuesses = 6;
 const wordLength = 5;
@@ -9,9 +11,11 @@ const wordLength = 5;
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
 
-  const [[name, fullName, hints], setSolution] = useState<
+  const [[name, fullName, hintsList], setSolution] = useState<
     [string, string, string[]]
   >(() => ["", "", [""]]);
+
+  const [solved, setSolved] = useState(false);
 
   const [guesses, setGuesses] = useState<string[]>(
     () => Array(numGuesses).fill(String(" ".repeat(wordLength))) as string[],
@@ -29,7 +33,7 @@ export default function Home() {
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (currentGuessIndex >= numGuesses) {
+      if (currentGuessIndex >= numGuesses || solved) {
         return;
       }
 
@@ -40,6 +44,10 @@ export default function Home() {
           return;
         }
         setCurrentGuessIndex((prev) => prev + 1);
+        if (currentGuess === name.toLowerCase()) {
+          setSolved(true);
+          return;
+        }
       }
 
       if (event.key === "Backspace") {
@@ -68,7 +76,14 @@ export default function Home() {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentGuessIndex, setCurrentGuessIndex, guesses, setGuesses]);
+  }, [
+    currentGuessIndex,
+    setCurrentGuessIndex,
+    guesses,
+    setGuesses,
+    solved,
+    setSolved,
+  ]);
 
   return (
     <div
@@ -77,27 +92,15 @@ export default function Home() {
         darkMode ? "bg-gray-900 text-white" : "bg-white text-black",
       )}
     >
-      <div
-        className={clsx(
-          "my-1 flex items-center justify-center border-b-2 p-1 text-xl font-semibold",
-          darkMode ? "border-white" : "border-black",
-        )}
-      >
-        Cricket Wordle.
-        <div
-          className="absolute right-4 cursor-pointer text-xs"
-          onClick={() => setDarkMode((curr) => !curr)}
-        >
-          {darkMode ? "Light" : "Dark"}
-        </div>
-      </div>
+      <TopBar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Board
         guesses={guesses}
         solution={name}
         fullName={fullName}
-        hintsArray={hints}
+        hintsArray={hintsList}
         currentGuessIndex={currentGuessIndex}
       />
+      <Hints hintsArray={hintsList} />
     </div>
   );
 }

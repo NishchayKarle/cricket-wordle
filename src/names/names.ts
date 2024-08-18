@@ -10,17 +10,27 @@ const names: [string, string, string[]][] = [
     "Mohammed Shami",
     ["WC Hat-Trick", "Debut 10 Wicket Haul", "WC 7-fer"],
   ],
-  ["Raina", "Suresh Raina", [""]],
-  ["Patel", "Axar Patel", [""]],
-  ["Munaf", "Munaf Patel", [""]],
-  ["Vijay", "Murali Vijay", [""]],
-  ["Rahul", "KL Rahul", [""]],
-  ["Kiran", "Kiran More", [""]],
-  ["Vinod", "Vinod Kambli", [""]],
-  ["Binny", "Roger Binny", [""]],
-  ["Dilip", "Dilip Vengsarkar", [""]],
-  ["Kumar", "Bhuvneshwar Kumar", [""]],
-  ["Robin", "Robin Uthappa", [""]],
+  ["Raina", "Suresh Raina", ["Debut Test 100, 2010", "87(25)", "Mr. IPL"]],
+  ["Patel", "Axar Patel", ["6/38 vs. England, Ahmedabad"]],
+  ["Munaf", "Munaf Patel", ["2/40 vs. Pakistan, 2011 WC Semis"]],
+  [
+    "Vijay",
+    "Murali Vijay",
+    ["167 vs. Australia, Boxing Day Test", "CSK", "Opener"],
+  ],
+  ["Rahul", "KL Rahul", ["199 vs. England", "Test Debut 100, Sydney"]],
+  [
+    "Vinod",
+    "Vinod Kambli",
+    ["224 vs. England", "664-run partnership with Tendulkar"],
+  ],
+  ["Binny", "Stuart Binny", ["Father-Son Duo", "6/4 vs. Bangladesh"]],
+  [
+    "Kumar",
+    "Bhuvneshwar Kumar",
+    ["Swing King", "Purple Cap", "140-run partnership with Dhoni"],
+  ],
+  ["Robin", "Robin Uthappa", ["2009 IPL Final let down"]],
 ];
 
 const selectAnswer: () => [string, string, string[]] = () => {
