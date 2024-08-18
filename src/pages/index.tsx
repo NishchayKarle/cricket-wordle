@@ -1,18 +1,20 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
-import Board from "../components/board"
+import Board from "../components/board";
 import selectAnswer from "../components/names/names";
 
-const numGuesses = 5;
+const numGuesses = 6;
 const wordLength = 5;
 
 export default function Home() {
-  const [[name, fullName], setSolution] = useState<[string, string]>(() => [
-    "",
-    "",
-  ]);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const [guesses, setGuesses] = useState<string[]>(() =>
-    Array(numGuesses).fill(String(" ".repeat(wordLength))) as string[],
+  const [[name, fullName, hints], setSolution] = useState<
+    [string, string, string[]]
+  >(() => ["", "", [""]]);
+
+  const [guesses, setGuesses] = useState<string[]>(
+    () => Array(numGuesses).fill(String(" ".repeat(wordLength))) as string[],
   );
 
   const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
@@ -69,11 +71,33 @@ export default function Home() {
   }, [currentGuessIndex, setCurrentGuessIndex, guesses, setGuesses]);
 
   return (
-    <div className="flex h-screen flex-col">
-      <div className="my-1 flex items-center justify-center border-b-2 border-black p-1 font-mono text-xl font-semibold">
+    <div
+      className={clsx(
+        "flex h-screen flex-col font-mono",
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-black",
+      )}
+    >
+      <div
+        className={clsx(
+          "my-1 flex items-center justify-center border-b-2 p-1 text-xl font-semibold",
+          darkMode ? "border-white" : "border-black",
+        )}
+      >
         Cricket Wordle.
+        <div
+          className="absolute right-4 cursor-pointer text-xs"
+          onClick={() => setDarkMode((curr) => !curr)}
+        >
+          {darkMode ? "Light" : "Dark"}
+        </div>
       </div>
-      <Board guesses={guesses} />
+      <Board
+        guesses={guesses}
+        solution={name}
+        fullName={fullName}
+        hintsArray={hints}
+        currentGuessIndex={currentGuessIndex}
+      />
     </div>
   );
 }
