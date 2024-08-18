@@ -83,6 +83,7 @@ export default function Home() {
     setGuesses,
     solved,
     setSolved,
+    name,
   ]);
 
   return (
