@@ -21,7 +21,7 @@ const names: [string, string][] = [
 ];
 
 const selectAnswer: () => [string, string] = () => {
-  return names[Math.floor(Math.random() * names.length)] || ["Rohit", "Sharma"];
+  return names[Math.floor(Math.random() * names.length)] ?? ["Rohit", "Rohit Sharma"];
 };
 
 export default selectAnswer;

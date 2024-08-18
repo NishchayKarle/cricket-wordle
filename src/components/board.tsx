@@ -12,7 +12,6 @@ const Board = ({ guesses }: BoardProps) => {
   );
 };
 
-export default Board;
 
 type LineProps = {
   guess: string;
@@ -40,3 +39,5 @@ const Line = ({ guess }: LineProps) => {
     </div>
   );
 };
+
+export default Board;

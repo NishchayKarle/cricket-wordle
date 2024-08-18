@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Board from "./components/board";
-import selectAnswer from "./names/names";
+import Board from "../components/board"
+import selectAnswer from "../components/names/names";
 
 const numGuesses = 5;
 const wordLength = 5;
@@ -12,7 +12,7 @@ export default function Home() {
   ]);
 
   const [guesses, setGuesses] = useState<string[]>(() =>
-    Array(numGuesses).fill(String(" ".repeat(wordLength))),
+    Array(numGuesses).fill(String(" ".repeat(wordLength))) as string[],
   );
 
   const [currentGuessIndex, setCurrentGuessIndex] = useState(0);
@@ -21,7 +21,7 @@ export default function Home() {
 
   useEffect(() => {
     const updateGuesses = (index: number, currentGuess: string) => {
-      let newGuesses = [...guesses];
+      const newGuesses = [...guesses];
       newGuesses[index] = currentGuess.padEnd(wordLength, " ");
       setGuesses(() => newGuesses);
     };
@@ -31,7 +31,7 @@ export default function Home() {
         return;
       }
 
-      let currentGuess = guesses[currentGuessIndex]?.trimEnd() || "";
+      let currentGuess = guesses[currentGuessIndex]?.trimEnd() ?? "";
 
       if (event.key === "Enter") {
         if (currentGuess.length !== wordLength) {
