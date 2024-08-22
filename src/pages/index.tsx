@@ -9,7 +9,7 @@ const numGuesses = 6;
 const wordLength = 5;
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const [[name, fullName, hintsList], setSolution] = useState<
     [string, string, string[]]
